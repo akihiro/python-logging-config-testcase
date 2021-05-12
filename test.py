@@ -12,6 +12,9 @@ class TestLoggingConfig(unittest.TestCase):
     def test_case2(self):
         fileConfig("case2.ini")
 
+    def test_case3(self):
+        fileConfig("case3.ini")
+
 
 if __name__ == "__main__":
     unittest.main()
