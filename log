@@ -1,0 +1,23 @@
+------
+ > [4/4] RUN python3 test.py:
+#8 0.627 ..E
+#8 0.632 ======================================================================
+#8 0.632 ERROR: test_case2 (__main__.TestLoggingConfig)
+#8 0.632 ----------------------------------------------------------------------
+#8 0.632 Traceback (most recent call last):
+#8 0.632   File "/tests/test.py", line 13, in test_case2
+#8 0.632     fileConfig("case2.ini")
+#8 0.632   File "/usr/local/lib/python3.9/logging/config.py", line 71, in fileConfig
+#8 0.632     formatters = _create_formatters(cp)
+#8 0.632   File "/usr/local/lib/python3.9/logging/config.py", line 118, in _create_formatters
+#8 0.632     c = _resolve(class_name)
+#8 0.632   File "/usr/local/lib/python3.9/logging/config.py", line 95, in _resolve
+#8 0.632     __import__(used)
+#8 0.632 ModuleNotFoundError: No module named 'bar.logging.FooBarFormatter'; 'bar.logging' is not a package
+#8 0.632
+#8 0.633 ----------------------------------------------------------------------
+#8 0.633 Ran 3 tests in 0.017s
+#8 0.633
+#8 0.633 FAILED (errors=1)
+------
+executor failed running [/bin/sh -c python3 test.py]: exit code: 1
