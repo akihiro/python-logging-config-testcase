@@ -70,16 +70,16 @@ class TestDictConfig(unittest.TestCase):
         }
         dictConfig(conf, **kwargs)
 
-    def test_dcase0(self):
+    def test_case0(self):
         self.dict_config("logging.Formatter")
 
-    def test_dcase1(self):
+    def test_case1(self):
         self.dict_config("foo.logging.FooBarFormatter")
 
-    def test_dcase2(self):
+    def test_case2(self):
         self.dict_config("bar.logging.FooBarFormatter")
 
-    def test_dcase3(self):
+    def test_case3(self):
         self.dict_config("baz.logging.FooBarFormatter")
 
 
