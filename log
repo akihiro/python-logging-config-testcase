@@ -17,13 +17,13 @@ Traceback (most recent call last):
 ModuleNotFoundError: No module named 'bar.logging.FooBarFormatter'; 'bar.logging' is not a package
 
 ----------------------------------------------------------------------
-Ran 4 tests in 0.008s
+Ran 4 tests in 0.006s
 
 FAILED (errors=1)
 $ python3 test.py TestDictConfig
 ..E.
 ======================================================================
-ERROR: test_dcase2 (__main__.TestDictConfig)
+ERROR: test_case2 (__main__.TestDictConfig)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
   File "/usr/local/lib/python3.9/logging/config.py", line 391, in resolve
@@ -48,7 +48,7 @@ ValueError: Cannot resolve 'bar.logging.FooBarFormatter': No module named 'bar.l
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "/home/hiroaki-m/hoge/test.py", line 80, in test_dcase2
+  File "/home/hiroaki-m/hoge/test.py", line 80, in test_case2
     self.dict_config("bar.logging.FooBarFormatter")
   File "/home/hiroaki-m/hoge/test.py", line 71, in dict_config
     dictConfig(conf, **kwargs)
@@ -59,6 +59,6 @@ Traceback (most recent call last):
 ValueError: Unable to configure formatter 'console'
 
 ----------------------------------------------------------------------
-Ran 4 tests in 0.004s
+Ran 4 tests in 0.003s
 
 FAILED (errors=1)
