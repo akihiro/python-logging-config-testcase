@@ -2,9 +2,10 @@ import io
 import textwrap
 import unittest
 from logging.config import fileConfig
+from logging.config import dictConfig
 
 
-class TestLoggingConfig(unittest.TestCase):
+class TestFileConfig(unittest.TestCase):
     config = textwrap.dedent(
         """
         [loggers]
@@ -41,6 +42,45 @@ class TestLoggingConfig(unittest.TestCase):
 
     def test_case3(self):
         self.file_config("baz.logging.FooBarFormatter")
+
+
+class TestDictConfig(unittest.TestCase):
+    def dict_config(self, cls, **kwargs):
+        conf = {
+            "formatters": {
+                "console": {
+                    "()": cls,
+                    "format": "CONSOLE: %(asctime)s %(levelname)s %(message)s",
+                },
+            },
+            "handlers": {
+                "console": {
+                    "()": "logging.StreamHandler",
+                    "formatter": "console",
+                    "stream": "ext://sys.stdout",
+                },
+            },
+            "loggers": {
+                "root": {
+                    "level": "INFO",
+                    "handlers": ["console"],
+                }
+            },
+            "version": 1,
+        }
+        dictConfig(conf, **kwargs)
+
+    def test_dcase0(self):
+        self.dict_config("logging.Formatter")
+
+    def test_dcase1(self):
+        self.dict_config("foo.logging.FooBarFormatter")
+
+    def test_dcase2(self):
+        self.dict_config("bar.logging.FooBarFormatter")
+
+    def test_dcase3(self):
+        self.dict_config("baz.logging.FooBarFormatter")
 
 
 if __name__ == "__main__":

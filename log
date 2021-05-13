@@ -1,23 +1,64 @@
-------
- > [4/4] RUN python3 test.py:
-#8 0.629 ..E.
-#8 0.635 ======================================================================
-#8 0.635 ERROR: test_case2 (__main__.TestLoggingConfig)
-#8 0.635 ----------------------------------------------------------------------
-#8 0.636 Traceback (most recent call last):
-#8 0.636   File "/tests/test.py", line 13, in test_case2
-#8 0.636     fileConfig("case2.ini")
-#8 0.636   File "/usr/local/lib/python3.9/logging/config.py", line 71, in fileConfig
-#8 0.636     formatters = _create_formatters(cp)
-#8 0.636   File "/usr/local/lib/python3.9/logging/config.py", line 118, in _create_formatters
-#8 0.636     c = _resolve(class_name)
-#8 0.636   File "/usr/local/lib/python3.9/logging/config.py", line 95, in _resolve
-#8 0.636     __import__(used)
-#8 0.636 ModuleNotFoundError: No module named 'bar.logging.FooBarFormatter'; 'bar.logging' is not a package
-#8 0.636
-#8 0.636 ----------------------------------------------------------------------
-#8 0.636 Ran 4 tests in 0.016s
-#8 0.636
-#8 0.637 FAILED (errors=1)
-------
-executor failed running [/bin/sh -c python3 test.py]: exit code: 1
+$ python3 test.py TestFileConfig
+..E.
+======================================================================
+ERROR: test_case2 (__main__.TestFileConfig)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/hiroaki-m/hoge/test.py", line 41, in test_case2
+    self.file_config("bar.logging.FooBarFormatter")
+  File "/home/hiroaki-m/hoge/test.py", line 32, in file_config
+    fileConfig(f, **kwargs)
+  File "/usr/local/lib/python3.9/logging/config.py", line 71, in fileConfig
+    formatters = _create_formatters(cp)
+  File "/usr/local/lib/python3.9/logging/config.py", line 118, in _create_formatters
+    c = _resolve(class_name)
+  File "/usr/local/lib/python3.9/logging/config.py", line 95, in _resolve
+    __import__(used)
+ModuleNotFoundError: No module named 'bar.logging.FooBarFormatter'; 'bar.logging' is not a package
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.008s
+
+FAILED (errors=1)
+$ python3 test.py TestDictConfig
+..E.
+======================================================================
+ERROR: test_dcase2 (__main__.TestDictConfig)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/logging/config.py", line 391, in resolve
+    self.importer(used)
+ModuleNotFoundError: No module named 'bar.logging.FooBarFormatter'; 'bar.logging' is not a package
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/logging/config.py", line 543, in configure
+    formatters[name] = self.configure_formatter(
+  File "/usr/local/lib/python3.9/logging/config.py", line 655, in configure_formatter
+    result = self.configure_custom(config)
+  File "/usr/local/lib/python3.9/logging/config.py", line 470, in configure_custom
+    c = self.resolve(c)
+  File "/usr/local/lib/python3.9/logging/config.py", line 398, in resolve
+    raise v
+  File "/usr/local/lib/python3.9/logging/config.py", line 391, in resolve
+    self.importer(used)
+ValueError: Cannot resolve 'bar.logging.FooBarFormatter': No module named 'bar.logging.FooBarFormatter'; 'bar.logging' is not a package
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/hiroaki-m/hoge/test.py", line 80, in test_dcase2
+    self.dict_config("bar.logging.FooBarFormatter")
+  File "/home/hiroaki-m/hoge/test.py", line 71, in dict_config
+    dictConfig(conf, **kwargs)
+  File "/usr/local/lib/python3.9/logging/config.py", line 809, in dictConfig
+    dictConfigClass(config).configure()
+  File "/usr/local/lib/python3.9/logging/config.py", line 546, in configure
+    raise ValueError('Unable to configure '
+ValueError: Unable to configure formatter 'console'
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.004s
+
+FAILED (errors=1)
