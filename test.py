@@ -43,6 +43,9 @@ class TestFileConfig(unittest.TestCase):
     def test_case3(self):
         self.file_config("baz.logging.FooBarFormatter")
 
+    def test_case4(self):
+        self.file_config("foobar.baz.FooBarFormatter")
+
 
 class TestDictConfig(unittest.TestCase):
     def dict_config(self, cls, **kwargs):
@@ -81,6 +84,9 @@ class TestDictConfig(unittest.TestCase):
 
     def test_case3(self):
         self.dict_config("baz.logging.FooBarFormatter")
+
+    def test_case4(self):
+        self.dict_config("foobar.baz.FooBarFormatter")
 
 
 if __name__ == "__main__":
