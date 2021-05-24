@@ -1,5 +1,5 @@
 $ python3 test.py TestFileConfig
-..E.
+..E.E
 ======================================================================
 ERROR: test_case2 (__main__.TestFileConfig)
 ----------------------------------------------------------------------
@@ -16,12 +16,28 @@ Traceback (most recent call last):
     __import__(used)
 ModuleNotFoundError: No module named 'bar.logging.FooBarFormatter'; 'bar.logging' is not a package
 
+======================================================================
+ERROR: test_case4 (__main__.TestFileConfig)
 ----------------------------------------------------------------------
-Ran 4 tests in 0.006s
+Traceback (most recent call last):
+  File "/home/hiroaki-m/hoge/test.py", line 47, in test_case4
+    self.file_config("foobar.baz.FooBarFormatter")
+  File "/home/hiroaki-m/hoge/test.py", line 32, in file_config
+    fileConfig(f, **kwargs)
+  File "/usr/local/lib/python3.9/logging/config.py", line 71, in fileConfig
+    formatters = _create_formatters(cp)
+  File "/usr/local/lib/python3.9/logging/config.py", line 118, in _create_formatters
+    c = _resolve(class_name)
+  File "/usr/local/lib/python3.9/logging/config.py", line 95, in _resolve
+    __import__(used)
+ModuleNotFoundError: No module named 'foobar.baz.FooBarFormatter'; 'foobar.baz' is not a package
 
-FAILED (errors=1)
+----------------------------------------------------------------------
+Ran 5 tests in 0.008s
+
+FAILED (errors=2)
 $ python3 test.py TestDictConfig
-..E.
+..E.E
 ======================================================================
 ERROR: test_case2 (__main__.TestDictConfig)
 ----------------------------------------------------------------------
@@ -48,9 +64,45 @@ ValueError: Cannot resolve 'bar.logging.FooBarFormatter': No module named 'bar.l
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "/home/hiroaki-m/hoge/test.py", line 80, in test_case2
+  File "/home/hiroaki-m/hoge/test.py", line 83, in test_case2
     self.dict_config("bar.logging.FooBarFormatter")
-  File "/home/hiroaki-m/hoge/test.py", line 71, in dict_config
+  File "/home/hiroaki-m/hoge/test.py", line 74, in dict_config
+    dictConfig(conf, **kwargs)
+  File "/usr/local/lib/python3.9/logging/config.py", line 809, in dictConfig
+    dictConfigClass(config).configure()
+  File "/usr/local/lib/python3.9/logging/config.py", line 546, in configure
+    raise ValueError('Unable to configure '
+ValueError: Unable to configure formatter 'console'
+
+======================================================================
+ERROR: test_case4 (__main__.TestDictConfig)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/logging/config.py", line 391, in resolve
+    self.importer(used)
+ModuleNotFoundError: No module named 'foobar.baz.FooBarFormatter'; 'foobar.baz' is not a package
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/logging/config.py", line 543, in configure
+    formatters[name] = self.configure_formatter(
+  File "/usr/local/lib/python3.9/logging/config.py", line 655, in configure_formatter
+    result = self.configure_custom(config)
+  File "/usr/local/lib/python3.9/logging/config.py", line 470, in configure_custom
+    c = self.resolve(c)
+  File "/usr/local/lib/python3.9/logging/config.py", line 398, in resolve
+    raise v
+  File "/usr/local/lib/python3.9/logging/config.py", line 391, in resolve
+    self.importer(used)
+ValueError: Cannot resolve 'foobar.baz.FooBarFormatter': No module named 'foobar.baz.FooBarFormatter'; 'foobar.baz' is not a package
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/hiroaki-m/hoge/test.py", line 89, in test_case4
+    self.dict_config("foobar.baz.FooBarFormatter")
+  File "/home/hiroaki-m/hoge/test.py", line 74, in dict_config
     dictConfig(conf, **kwargs)
   File "/usr/local/lib/python3.9/logging/config.py", line 809, in dictConfig
     dictConfigClass(config).configure()
@@ -59,6 +111,6 @@ Traceback (most recent call last):
 ValueError: Unable to configure formatter 'console'
 
 ----------------------------------------------------------------------
-Ran 4 tests in 0.003s
+Ran 5 tests in 0.004s
 
-FAILED (errors=1)
+FAILED (errors=2)
